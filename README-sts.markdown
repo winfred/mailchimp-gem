@@ -19,7 +19,7 @@ You can set your api_key globally and call class methods:
     Mailchimp::STS.api_key = "your_api_key"
     Mailchimp::STS.send_email(...)
 
-You can also set the environment variable 'MC_API_KEY' and STS will use it when you create an instance:
+You can also set the environment variable 'MAILCHIMP_API_KEY' and STS will use it when you create an instance:
 
     sts = Mailchimp::STS.new
 

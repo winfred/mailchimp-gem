@@ -18,13 +18,6 @@ class ApiTest < Test::Unit::TestCase
       assert_equal(@api_key, @api.api_key)
     end
 
-    should "set an API key from the 'MC_API_KEY' ENV variable" do
-      ENV['MC_API_KEY'] = @api_key
-      @api = Mailchimp::API.new
-      assert_equal(@api_key, @api.api_key)
-      ENV.delete('MC_API_KEY')
-    end
-
     should "set an API key from the 'MAILCHIMP_API_KEY' ENV variable" do
       ENV['MAILCHIMP_API_KEY'] = @api_key
       @api = Mailchimp::API.new

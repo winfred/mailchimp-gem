@@ -10,7 +10,7 @@ module Mailchimp
     attr_accessor :api_key, :timeout, :options
 
     def initialize(api_key = nil, extra_params = {})
-      @api_key = api_key || ENV['MC_API_KEY'] || ENV['MAILCHIMP_API_KEY'] || self.class.api_key
+      @api_key = api_key || ENV['MAILCHIMP_API_KEY'] || self.class.api_key
       @default_params = {
         :apikey => @api_key,
         :options => {
@@ -26,8 +26,7 @@ module Mailchimp
     end
 
     def base_api_url
-      dc = @api_key.blank? ? '' : "#{@api_key.split("-").last}."
-      "https://#{dc}sts.mailchimp.com/1.0/"
+      "https://mandrillapp.com/api/1.0/"
     end
 
     def call(method, params = {})
@@ -44,7 +43,7 @@ module Mailchimp
     end
 
     def method_missing(method, *args)
-      method = method.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase } #Thanks for the gsub, Rails
+      method = method.to_s.gsub(/_/, '/')
       args = {} unless args.length > 0
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)
