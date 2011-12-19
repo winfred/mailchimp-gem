@@ -70,8 +70,6 @@ class STSTest < Test::Unit::TestCase
   
   def expect_post(expected_url, expected_body, expected_timeout=nil)
     Mailchimp::STS.expects(:post).with do |url, opts|
-      puts expected_url
-      puts url
       url == expected_url &&
       opts[:body] == expected_body &&
       opts[:timeout] == expected_timeout
