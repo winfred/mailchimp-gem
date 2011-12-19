@@ -1,0 +1,20 @@
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "mailchimp/version"
+
+Gem::Specification.new do |s|
+  s.name        = "mailchimp"
+  s.version     = Mailchimp::VERSION
+  s.authors     = ["Chris Kelly"]
+  s.email       = ["chris@highgroove.com]
+  s.homepage    = ""
+  s.summary     = %q{Mailchimp APIs in Ruby}
+  s.description = %q{This provides Ruby access to (eventually) all of Mailchimp's APIs}
+
+  s.rubyforge_project = "mailchimp"
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+end
