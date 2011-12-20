@@ -22,5 +22,9 @@ puts "valid senders:"
 
 mandrill.users_senders.map { |sender| puts "\t#{sender['address']}" }
 
+puts "sending a validation request for your user..."
+
+mandrill.users_verify_sender(email: mandrill.users_info['username'])
+
 puts "Sent! Status: #{response['status']}"
 
