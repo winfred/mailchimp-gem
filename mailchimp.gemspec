@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('shoulda')
   s.add_development_dependency('mocha')
   s.add_development_dependency('cover_me')
+  s.add_development_dependency('fakeweb')
 end

@@ -1,7 +1,3 @@
-require 'httparty'
-require 'json'
-require 'cgi'
-
 module Mailchimp
   class API
     include HTTParty

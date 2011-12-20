@@ -2,7 +2,7 @@ require 'httparty'
 require 'json'
 require 'cgi'
 
-require "mailchimp/lib/httparty"
+require "mailchimp/ext/httparty"
 
 require "mailchimp/version"
 require "mailchimp/api"
