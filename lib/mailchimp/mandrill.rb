@@ -26,7 +26,7 @@ module Mailchimp
     end
 
     def base_api_url
-      "https://mandrillapp.com/api/1.0/"
+      "http://mandrillapp.com/api/1.0/"
     end
 
     def call(method, params = {})
@@ -43,7 +43,8 @@ module Mailchimp
     end
 
     def method_missing(method, *args)
-      method = method.to_s.gsub(/_/, '/')
+      match = method.to_s.match(/([a-z]*)_([a-z]*)_?([a-z]*)/)
+      method = "#{match[1]}/#{match[2]}#{match[3] == '' ? "" : "-"+match[3]}"
       args = {} unless args.length > 0
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)

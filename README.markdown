@@ -8,7 +8,7 @@ Initially, this doesn't work that well yet!
 
 ##Installation
 
-  $ gem install mailchimp
+        $ gem install mailchimp
 
 ##Requirements
 
@@ -16,10 +16,14 @@ A paid MailChimp account, MailChimp API key, and any extra setup for services th
 
 ##Usage
 
-  api      = Mailchimp::API.new("your_api_key")
-  sts      = Mailchimp::STS.new("your_api_key")
-  mandrill = Mailchimp::Mandrill.new("your_api_key")
+        api      = Mailchimp::API.new("your_api_key")
+        sts      = Mailchimp::STS.new("your_api_key")
+        mandrill = Mailchimp::Mandrill.new("your_api_key")
+        
+## Examples
+
+Take a look in the examples/ folder for examples using each of the APIs
 
 ##Development
 
-  $ rake test
+        $ rake test

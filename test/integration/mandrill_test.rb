@@ -5,7 +5,7 @@ class MandrillIntegrationTest < Test::Unit::TestCase
   should "send request to Mandrill API" do
     FakeWeb.register_uri(
       :post,
-      'https://mandrillapp.com/api/1.0/users/ping',
+      'http://mandrillapp.com/api/1.0/users/ping',
       body: "PONG!"
     )
     expected_request = "key=abc123-us1&options[track_opens]=true&options[track_clicks]=true"

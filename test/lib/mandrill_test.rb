@@ -44,7 +44,7 @@ class MandrillTest < Test::Unit::TestCase
   context "build api url" do
     setup do
       @api = Mailchimp::Mandrill.new
-      @url = "https://mandrillapp.com/api/1.0/users/ping"
+      @url = "http://mandrillapp.com/api/1.0/users/ping"
     end
   
     should "handle empty api key" do
