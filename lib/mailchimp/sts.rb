@@ -26,7 +26,7 @@ module Mailchimp
     end
 
     def base_api_url
-      dc = @api_key == '' ? '' : "#{@api_key.split("-").last}."
+      dc = (@api_key == '' || @api_key == nil) ? '' : "#{@api_key.split("-").last}."
       "https://#{dc}sts.mailchimp.com/1.0/"
     end
 
