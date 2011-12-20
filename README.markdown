@@ -22,7 +22,13 @@ A paid MailChimp account, MailChimp API key, and any extra setup for services th
         
 ## Examples
 
-Take a look in the examples/ folder for examples using each of the APIs
+Take a look in the examples/ folder for examples using each of the APIs. The only actions these perform 
+are either read only or only send emails to you or the address you specify, so it's ok to use your real 
+Mailchimp API keys for them. run them like:
+
+        ruby examples/api_example.rb
+        ruby examples/sts_example.rb
+        ruby examples/mandrill_example.rb
 
 ##Development
 

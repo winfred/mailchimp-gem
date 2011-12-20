@@ -1,9 +1,14 @@
+if ENV['MAILCHIMP_MANDRILL_API_KEY'] == nil
+  puts 'Set ENV["MAILCHIMP_MANDRILL_API_KEY"] to use this example'
+  exit
+end
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'mailchimp' # Use the 'mailchimp' gem instead
 
 # Set MAILCHIMP_MANDRILL_API_KEY in your environment to use this.
-mandrill = Mailchimp::Mandrill.new(ENV['MAILCHIMP_MANDRILL_API_KEY'])  
+mandrill = Mailchimp::Mandrill.new(ENV['MAILCHIMP_MANDRILL_API_KEY'])
 
 puts "Your username is #{mandrill.users_info['username']}. lets email that person as that person to that person!"
 
