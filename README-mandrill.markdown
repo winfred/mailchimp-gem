@@ -1,6 +1,6 @@
-# mandrill
+# Mailchimp::Mandrill
 
-Mailchimp::Mandrill is a simple API wrapper for Mandrill.
+Mailchimp::Mandrill is a simple API wrapper for the [Mailchimp Mandrill API](http://mandrillapp.com/api/docs/index.html).
 
 ##Requirements
 
@@ -8,3 +8,57 @@ A MailChimp account and a Mandrill specific API key.
 
 Note, to be able to send messages, you'll have to click an e-mail in a message sent to you the first time you try to use that sender.
 
+##Usage
+
+There are a few ways to use Mandrill.
+
+You can create an instance of the API wrapper:
+
+    mandrill = Mailchimp::Mandrill.new("your_api_key")
+
+You can set your api_key globally and call class methods:
+
+    Mailchimp::Mandrill.api_key = "your_api_key"
+    Mailchimp::Mandrill.user_senders(...)
+
+You can also set the environment variable 'MAILCHIMP_MANDRILL_API_KEY' and Mandrill will use it when you create an instance:
+
+    mandrill = Mailchimp::Mandrill.new
+
+### Sending a message
+
+Send a message so a single email:
+
+    response = mandrill.messages_send({
+        :message      => { 
+            :subject => 'your subject', 
+            :html => '<html>hello world</html>', 
+            :text => 'hello world', 
+            :from_name => 'John Smith', 
+            :from_email => 'support@somedomain.com', 
+            :to => ['user@someotherdomain.com']
+        }
+    })
+
+Calling other methods is as simple as calling API methods directly on the Mandrill instance (e.g. mandrill.users_verify_sender(...)). Check the API [documentation](http://mandrillapp.com/api/docs/index.html)) for more information about API calls and their parameters.
+
+
+### Plugging into ActionMailer
+
+You can tell ActionMailer to send mail using Mandrill by adding the follow to to your config/application.rb or to the proper environment (eg. config/production.rb) :
+    
+    config.action_mailer.delivery_method = :mailchimp_mandrill
+    config.action_mailer.mailchimp_mandrill_settings = {
+          :api_key => "your_mailchimp_mandrill_apikey",
+          :track_clicks => true,
+          :track_opens  => true, 
+          :from_name    => "Change Me"
+     }
+
+These setting will allow you to use ActionMailer as you normally would, any calls to mail() will be sent using Mandrill
+
+### Other Stuff
+
+Mandrill defaults to a 30 second timeout. You can optionally set your own timeout (in seconds) like so:
+
+    sts.timeout = 5

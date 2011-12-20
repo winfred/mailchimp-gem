@@ -1,4 +1,4 @@
-# uakari
+# Mailchimp::STS
 
 STS is a simple API wrapper for the [MailChimp STS API](http://http://apidocs.mailchimp.com/sts/1.0/) 1.0, which wraps Amazon SES.
     
@@ -68,19 +68,3 @@ If, for some reason, you want to use ActionMailer and change your tags dynamical
 STS defaults to a 30 second timeout. You can optionally set your own timeout (in seconds) like so:
 
     sts.timeout = 5
-
-##Thanks
-
-* [Chris Kelly](https://github.com/ckdake)
-* [Stafford Brooke](https://github.com/srbiv)
-* [Loren Norman](https://github.com/lorennorman)
-* [Ali Faiz](https://github.com/alif)
-* [Calvin Yu](https://github.com/cyu)
-* [James Kyburz](https://github.com/JamesKyburz)
-* Rails for camelize gsub
-
-##Copyrights
-
-* Copyright (c) 2010 Amro Mousa. See LICENSE.txt for details.
-* MailChimp (c) 2001-2011 The Rocket Science Group.
-* Amazon SES (c) 2011 Amazon
