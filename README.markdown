@@ -18,7 +18,7 @@ confident that it should work out of the box for most usage scenarios.
 
 ##Requirements
 
-A paid MailChimp account, MailChimp API key, and any extra setup/keys for other services/APIs that
+A MailChimp account, MailChimp API key, and any extra setup/keys for other services/APIs that
 you want to use.
 
 ##Basic Usage
