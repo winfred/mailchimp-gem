@@ -14,7 +14,7 @@ module Mailchimp
       @default_params = {
         :key => @api_key,
         :options => {
-          :track_opens => true, 
+          :track_opens => true,
           :track_clicks => true
         }
       }.merge(extra_params)
@@ -49,10 +49,14 @@ module Mailchimp
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)
     end
-
+    
+    def valid_api_key?(*args)
+      'PONG!' == self.users_ping
+    end
+    
     class << self
       attr_accessor :api_key
-
+      
       def method_missing(sym, *args, &block)
         new(self.api_key).send(sym, *args, &block)
       end

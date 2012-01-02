@@ -5,7 +5,6 @@ class MandrillTest < Test::Unit::TestCase
   DEFAULT_OPTIONS= {:options=>{:track_opens=>true, :track_clicks=>true}}
 
   context "attributes" do
-
     setup do
       @api_key = "123-us1"
     end
