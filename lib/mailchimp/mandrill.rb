@@ -5,6 +5,7 @@ end
 module Mailchimp
   class Mandrill
     include HTTParty
+    parser MailchimpPsuedoJSONParser
     default_timeout 30
 
     attr_accessor :api_key, :timeout, :options
@@ -51,7 +52,7 @@ module Mailchimp
     end
     
     def valid_api_key?(*args)
-      'PONG!' == self.users_ping
+      '"PONG!"' == self.users_ping
     end
     
     class << self

@@ -51,7 +51,13 @@ Write tests before you change anything, run tests before you commit anything:
 
         $ rake test
 
-We welcome concise pull requests that match the style of this gem and have appropriate tests.
+We welcome concise pull requests that match the style of this gem and have appropriate tests. To get a
+console running where you can play, run:
+
+        irb
+        $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+        $LOAD_PATH.unshift(File.dirname(__FILE__))
+        require 'mailchimp'
 
 ##Contributors
 
