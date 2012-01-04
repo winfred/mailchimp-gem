@@ -52,7 +52,6 @@ module Mailchimp
     end
     
     def valid_api_key?(*args)
-      puts args.inspect
       '"PONG!"' == self.users_ping
     end
     
