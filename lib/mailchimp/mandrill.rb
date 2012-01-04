@@ -52,6 +52,7 @@ module Mailchimp
     end
     
     def valid_api_key?(*args)
+      puts args.inspect
       '"PONG!"' == self.users_ping
     end
     
@@ -59,6 +60,7 @@ module Mailchimp
       attr_accessor :api_key
       
       def method_missing(sym, *args, &block)
+        self.api_key = args[0] if sym == :valid_api_key?
         new(self.api_key).send(sym, *args, &block)
       end
     end
