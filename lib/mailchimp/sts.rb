@@ -13,6 +13,10 @@ module Mailchimp
           }
         }.merge(extra_params))
     end
+    
+    def valid_api_key?(*args)
+      %q{"Everything's Chimpy!"} == call("#{_base_api_url}ping")
+    end
 
     def call(method, params = {})
       super("#{base_api_url}#{method}",params.merge({:apikey => @api_key}))

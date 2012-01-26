@@ -16,6 +16,10 @@ module Mailchimp
       }.merge(default_parameters))
     end
     
+    def valid_api_key?(*args)
+      '"PONG!"' == self.users_ping
+    end
+    
     def call(method, params = {})
       super("#{base_api_url}#{method}",@default_params.merge(params))
     end

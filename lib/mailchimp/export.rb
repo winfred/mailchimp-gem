@@ -11,8 +11,8 @@ module Mailchimp
     def call(method, params = {})
       api_url = export_api_url + method + "/"
       params = @default_params.merge(params)
-      timeout = params.delete(:timeout)
-      response = self.class.post(api_url, :body => params, :timeout => timeout || @timeout)
+      timeout = params.delete(:timeout) || @timeout
+      response = self.class.post(api_url, :body => params, :timeout => timeout)
 
       lines = response.body.lines
       if @throws_exceptions

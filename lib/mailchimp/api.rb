@@ -20,13 +20,18 @@ module Mailchimp
     def base_api_url
       "https://#{dc_from_api_key}api.mailchimp.com/1.3/?method="
     end
+    
+    def valid_api_key?(*args)
+      %q{"Everything's Chimpy!"} == call("#{_base_api_url}ping")
+    end
 
     protected
 
     def call(method, params = {})
       api_url = base_api_url + method
       params = @default_params.merge(params)
-      response = self.class.post(api_url, :body => CGI::escape(params.to_json), :timeout => @timeout)
+      timeout = params.delete(:timeout) || @timeout
+      response = self.class.post(api_url, :body => CGI::escape(params.to_json), :timeout => timeout)
 
       begin
         response = JSON.parse(response.body)
