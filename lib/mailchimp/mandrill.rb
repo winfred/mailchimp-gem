@@ -27,8 +27,7 @@ module Mailchimp
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)
     end
-      call(method, *args)
-    end
+
     
     class << self
       attr_accessor :api_key
