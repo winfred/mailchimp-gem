@@ -3,46 +3,23 @@ if defined?(ActionMailer)
 end
 
 module Mailchimp
-  class Mandrill
-    include HTTParty
+  class Mandrill < Base
     parser MailchimpPsuedoJSONParser
-    default_timeout 30
 
-    attr_accessor :api_key, :timeout, :options
-
-    def initialize(api_key = nil, extra_params = {})
-      @api_key = api_key || ENV['MAILCHIMP_API_KEY'] || self.class.api_key
-      @default_params = {
-        :key => @api_key,
+    def initialize(api_key = nil, default_parameters = {})
+      super(api_key, {
+        :key => api_key,
         :options => {
           :track_opens => true,
           :track_clicks => true
         }
-      }.merge(extra_params)
+      }.merge(default_parameters))
     end
-
-    def api_key=(value)
-      @api_key = value
-      @default_params = @default_params.merge({:key => @api_key})
-    end
-
-    def base_api_url
-      "http://mandrillapp.com/api/1.0/"
-    end
-
+    
     def call(method, params = {})
-      url = "#{base_api_url}#{method}"
-      params = @default_params.merge(params)
-      response = self.class.post(url, :body => params, :timeout => @timeout)
-
-      begin
-        response = JSON.parse(response.body)
-      rescue
-        response = response.body
-      end
-      response
+      super("#{base_api_url}#{method}",@default_params.merge(params))
     end
-
+    
     def method_missing(method, *args)
       match = method.to_s.match(/([a-z]*)_([a-z]*)_?([a-z]*)/)
       method = "#{match[1]}/#{match[2]}#{match[3] == '' ? "" : "-"+match[3]}"
@@ -50,9 +27,7 @@ module Mailchimp
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)
     end
-    
-    def valid_api_key?(*args)
-      '"PONG!"' == self.users_ping
+      call(method, *args)
     end
     
     class << self
@@ -63,5 +38,11 @@ module Mailchimp
         new(self.api_key).send(sym, *args, &block)
       end
     end
+    
+    private
+    
+      def base_api_url
+        "http://mandrillapp.com/api/1.0/"
+      end
   end
 end
