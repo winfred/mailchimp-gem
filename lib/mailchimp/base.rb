@@ -18,8 +18,8 @@ module Mailchimp
       (@api_key.nil? || @api_key.length == 0 || @api_key !~ /-/) ? '' : "#{@api_key.split("-").last}."
     end
     
-    def valid_api_key?(*args)
-      %q{"Everything's Chimpy!"} == call("#{_base_api_url}ping")
+    def valid_api_key?
+      %q{"Everything's Chimpy!"} == self.class.post(_base_api_url+"ping", :body => {apikey: @api_key}, :timeout => 30).body
     end
     
     class << self
