@@ -49,7 +49,7 @@ Mailchimp API keys for them. run them like:
 
 API calls default to a 30 second timeout. You can optionally set your own timeout (in seconds) like so:
 
-	api = Mailchimp::API.new("apikey", timeout: 60)
+    api = Mailchimp::API.new("apikey", timeout: 60)
     api.timeout = 5
     api.listBatchSubscribe(list_id: "123", batch: [1..7000], timeout: 300) #per-request will override default
 
