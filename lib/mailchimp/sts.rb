@@ -11,6 +11,7 @@ module Mailchimp
           :track_opens => true, 
           :track_clicks => true
           }
+        }.merge(extra_params))
     end
 
     def call(method, params = {})
