@@ -5,7 +5,8 @@ module Mailchimp
   class Base
     include HTTParty
     default_timeout 30
-
+    format :json
+    parser MailchimpPsuedoJSONParser
     attr_accessor :api_key, :timeout, :options
 
     def initialize(api_key = nil, default_parameters = {})
