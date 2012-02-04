@@ -46,19 +46,19 @@ class ApiTest < Test::Unit::TestCase
     end
 
     should "handle empty api key" do
-      expect_post(@url, {"apikey" => nil})
+      expect_post(@url, {:apikey => nil})
       @api.say_hello
     end
 
     should "handle malformed api key" do
       @api_key = "123"
       @api.api_key = @api_key
-      expect_post(@url, {"apikey" => @api_key})
+      expect_post(@url, {:apikey => @api_key})
       @api.say_hello
     end
 
     should "handle timeout" do
-      expect_post(@url, {"apikey" => nil}, 120)
+      expect_post(@url, {:apikey => nil}, 120)
       @api.timeout=120
       @api.say_hello
     end
@@ -66,7 +66,7 @@ class ApiTest < Test::Unit::TestCase
     should "handle api key with dc" do
       @api_key = "TESTKEY-us1"
       @api.api_key = @api_key
-      expect_post("https://us1.api.mailchimp.com/1.3/?method=sayHello", {"apikey" => @api_key})
+      expect_post("https://us1.api.mailchimp.com/1.3/?method=sayHello", {:apikey => @api_key})
       @api.say_hello
     end
   end
@@ -76,32 +76,36 @@ class ApiTest < Test::Unit::TestCase
       @key = "TESTKEY-us1"
       @api = Mailchimp::API.new(@key)
       @url = "https://us1.api.mailchimp.com/1.3/?method=sayHello"
-      @body = {"apikey" => @key}
+      @body = {:apikey => @key}
     end
 
     should "escape string parameters" do
       @message = "simon says"
-      expect_post(@url, @body.merge("message" => CGI::escape(@message)))
+      expect_post(@url, @body.merge(:message => @message))
       @api.say_hello(:message => @message)
     end
-
+=begin 
+   #pending json enforced
     should "escape string parameters in an array" do
+      pending 'json enforced'
       expect_post(@url, @body.merge("messages" => ["simon+says", "do+this"]))
       @api.say_hello(:messages => ["simon says", "do this"])
     end
 
     should "escape string parameters in a hash" do
+      pending 'json enforced'
       expect_post(@url, @body.merge("messages" => {"simon+says" => "do+this"}))
       @api.say_hello(:messages => {"simon says" => "do this"})
     end
 
     should "escape nested string parameters" do
+      pending 'json enforced'
       expect_post(@url, @body.merge("messages" => {"simon+says" => ["do+this", "and+this"]}))
       @api.say_hello(:messages => {"simon says" => ["do this", "and this"]})
     end
-
+=end
     should "pass through non string parameters" do
-      expect_post(@url, @body.merge("fee" => 99))
+      expect_post(@url, @body.merge(:fee => 99))
       @api.say_hello(:fee => 99)
     end
   end
@@ -115,15 +119,8 @@ class ApiTest < Test::Unit::TestCase
       @returns = Struct.new(:body).new(["array", "entries"].to_json)
     end
 
-    should "throw exception if configured to and the API replies with a JSON hash containing a key called 'error'" do
-      Mailchimp::API.stubs(:post).returns(Struct.new(:body).new({'error' => 'bad things'}.to_json))
-      assert_nothing_raised do
-        result = @api.say_hello
-      end
-
-      ap result
-    end
-
+=begin
+   #pending exception driven out in Base
     should "throw exception if configured to and the API replies with a JSON hash containing a key called 'error'" do
       @api.throws_exceptions = true
       Mailchimp::API.stubs(:post).returns(Struct.new(:body).new({'error' => 'bad things'}.to_json))
@@ -131,8 +128,9 @@ class ApiTest < Test::Unit::TestCase
         @api.say_hello
       end
     end
+=end
     should 'allow one to check api key validity' do
-      Mailchimp::API.stubs(:post).returns(Struct.new(:body).new(%q{"Everything's Chimpy!"}.to_json))
+      Mailchimp::API.stubs(:post).returns(Struct.new(:body).new(%q{"Everything's Chimpy!"}))
       assert_equal true, @api.valid_api_key?
     end
   end
@@ -143,7 +141,7 @@ class ApiTest < Test::Unit::TestCase
   def expect_post(expected_url, expected_body, expected_timeout=nil)
     Mailchimp::API.expects(:post).with do |url, opts|
       url == expected_url &&
-      JSON.parse(URI::decode(opts[:body])) == expected_body &&
+      opts[:body] == expected_body &&
       opts[:timeout] == expected_timeout
     end.returns(Struct.new(:body).new("") )
   end
