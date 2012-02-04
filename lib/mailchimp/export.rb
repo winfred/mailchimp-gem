@@ -22,6 +22,11 @@ module Mailchimp
 
       lines  
     end
+    
+    def method_missing(method, *args)
+      call(method.to_s, *args)
+    end
+
     class << self
       attr_accessor :api_key
 
